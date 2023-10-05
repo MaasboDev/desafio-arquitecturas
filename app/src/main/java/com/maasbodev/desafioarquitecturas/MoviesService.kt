@@ -1,9 +1,13 @@
 package com.maasbodev.desafioarquitecturas
 
 import retrofit2.http.GET
+import retrofit2.http.Path
 
 interface MoviesService {
 
-	@GET("discover/movie?api_key=246fb4b40c54eae189d373d21ce2e3c6")
-	suspend fun getMovies(): MovieResult
+	@GET("characters?limit=100&apikey=dee033d28552710396e7d9b1d3b44efb")
+	suspend fun getCharacters(
+		@Path("limit") limit: Int,
+		@Path("api_key") apiKey: String
+	): MovieResult
 }

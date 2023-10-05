@@ -1,3 +1,5 @@
+import com.android.build.gradle.internal.cxx.configure.gradleLocalProperties
+
 plugins {
 	id("com.android.application")
 	id("org.jetbrains.kotlin.android")
@@ -18,6 +20,11 @@ android {
 		vectorDrawables {
 			useSupportLibrary = true
 		}
+
+		val mpk: String = gradleLocalProperties(rootDir).getProperty("MPK")
+		buildConfigField("String", "MPK", "\"$mpk\"")
+		val mh: String = gradleLocalProperties(rootDir).getProperty("MH")
+		buildConfigField("String", "MH", "\"$mh\"")
 	}
 
 	buildTypes {
@@ -38,6 +45,7 @@ android {
 	}
 	buildFeatures {
 		compose = true
+		buildConfig = true
 	}
 	composeOptions {
 		kotlinCompilerExtensionVersion = "1.4.3"

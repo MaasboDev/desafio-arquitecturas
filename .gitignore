@@ -31,3 +31,5 @@ captures/
 .idea/
 # Cache of project
 .gradletasknamecache
+
+apikey.properties

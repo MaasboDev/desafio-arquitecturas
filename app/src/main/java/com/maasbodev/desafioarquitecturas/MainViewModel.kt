@@ -14,6 +14,7 @@ class MainViewModel : ViewModel() {
 	val state: StateFlow<UiState> = _state
 
 	init {
+		val mpk = BuildConfig.MPK
 		viewModelScope.launch {
 			_state.value = UiState(loading = true)
 			_state.value = UiState(
@@ -23,7 +24,7 @@ class MainViewModel : ViewModel() {
 					.addConverterFactory(GsonConverterFactory.create())
 					.build()
 					.create(MoviesService::class.java)
-					.getMovies()
+					.getCharacters(100, mpk)
 					.results
 			)
 		}
