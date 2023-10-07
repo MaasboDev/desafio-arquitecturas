@@ -1,3 +1,5 @@
+import com.android.build.gradle.internal.cxx.configure.gradleLocalProperties
+
 plugins {
 	id("com.android.application")
 	id("org.jetbrains.kotlin.android")
@@ -19,6 +21,11 @@ android {
 		vectorDrawables {
 			useSupportLibrary = true
 		}
+
+		val mpk: String = gradleLocalProperties(rootDir).getProperty("MPK")
+		buildConfigField("String", "MPK", "\"$mpk\"")
+		val mh: String = gradleLocalProperties(rootDir).getProperty("MH")
+		buildConfigField("String", "MH", "\"$mh\"")
 	}
 
 	buildTypes {
@@ -39,6 +46,7 @@ android {
 	}
 	buildFeatures {
 		compose = true
+		buildConfig = true
 	}
 	composeOptions {
 		kotlinCompilerExtensionVersion = "1.4.3"
@@ -63,6 +71,9 @@ dependencies {
 	implementation("androidx.lifecycle:lifecycle-viewmodel-compose:2.6.2")
 	implementation("androidx.lifecycle:lifecycle-runtime-compose:2.6.2")
 	implementation("androidx.compose.runtime:runtime-livedata:1.5.3")
+
+	// Logging Interceptor
+	implementation("com.squareup.okhttp3:logging-interceptor:4.10.0")
 
 	// room
 	implementation("androidx.room:room-runtime:2.5.2")

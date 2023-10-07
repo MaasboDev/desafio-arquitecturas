@@ -1,21 +1,24 @@
 package com.maasbodev.desafioarquitecturas.data.local
 
-import com.maasbodev.desafioarquitecturas.data.Movie
+import com.maasbodev.desafioarquitecturas.data.entities.Character
+import com.maasbodev.desafioarquitecturas.data.local.dao.CharacterDao
+import com.maasbodev.desafioarquitecturas.data.local.entities.toCharacter
+import com.maasbodev.desafioarquitecturas.data.local.entities.toLocalCharacter
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 
-class LocalDataSource(private val dao: MoviesDao) {
+class LocalDataSource(private val dao: CharacterDao) {
 
-	val movies: Flow<List<Movie>> = dao.getMovies().map { movies ->
-		movies.map { it.toMovie() }
+	val characters: Flow<List<Character>> = dao.getCharacters().map { characters ->
+		characters.map { it.toCharacter() }
 	}
 
-	suspend fun insertAll(movies: List<Movie>) {
-		dao.insertAll(movies.map { it.toLocalMovie() })
+	suspend fun insertAllCharacters(characters: List<Character>) {
+		dao.insertAllCharacters(characters.map { it.toLocalCharacter() })
 	}
 
-	suspend fun updateMovie(movie: Movie) {
-		dao.updateMovie(movie.toLocalMovie())
+	suspend fun updateCharacter(character: Character) {
+		dao.updateCharacters(character.toLocalCharacter())
 	}
 
 	suspend fun count(): Int {

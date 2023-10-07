@@ -4,31 +4,31 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.room.Room
-import com.maasbodev.desafioarquitecturas.data.MoviesRepository
+import com.maasbodev.desafioarquitecturas.data.MarvelRepository
 import com.maasbodev.desafioarquitecturas.data.local.LocalDataSource
-import com.maasbodev.desafioarquitecturas.data.local.MoviesDatabase
+import com.maasbodev.desafioarquitecturas.data.local.MarvelDatabase
 import com.maasbodev.desafioarquitecturas.data.remote.RemoteDataSource
 import com.maasbodev.desafioarquitecturas.ui.screens.home.Home
 
 class MainActivity : ComponentActivity() {
 
-	private lateinit var db: MoviesDatabase
+	private lateinit var db: MarvelDatabase
 
 	override fun onCreate(savedInstanceState: Bundle?) {
 		super.onCreate(savedInstanceState)
 
 		db = Room.databaseBuilder(
 			applicationContext,
-			MoviesDatabase::class.java, "movies-db"
+			MarvelDatabase::class.java, "marvel-db"
 		).build()
 
-		val repository = MoviesRepository(
-			localDataSource = LocalDataSource(db.moviesDao()),
+		val repository = MarvelRepository(
+			localDataSource = LocalDataSource(db.charactersDao()),
 			remoteDataSource = RemoteDataSource(),
 		)
 
 		setContent {
-			Home(moviesRepository = repository)
+			Home(marvelRepository = repository)
 		}
 	}
 }
