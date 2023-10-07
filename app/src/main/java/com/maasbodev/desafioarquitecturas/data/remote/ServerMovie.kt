@@ -1,4 +1,6 @@
-package com.maasbodev.desafioarquitecturas
+package com.maasbodev.desafioarquitecturas.data.remote
+
+import com.maasbodev.desafioarquitecturas.data.Movie
 
 data class ServerMovie(
 	val adult: Boolean,
@@ -16,4 +18,12 @@ data class ServerMovie(
 	val vote_average: Double,
 	val vote_count: Int,
 	val favorite: Boolean = false
+)
+
+fun ServerMovie.toMovie() = Movie(
+	id = id,
+	title = title,
+	overview = overview,
+	posterPath = poster_path,
+	favorite = favorite
 )

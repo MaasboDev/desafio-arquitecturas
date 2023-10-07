@@ -1,4 +1,4 @@
-package com.maasbodev.desafioarquitecturas
+package com.maasbodev.desafioarquitecturas.data.remote
 
 import retrofit2.http.GET
 
